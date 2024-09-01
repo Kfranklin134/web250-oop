@@ -2,12 +2,17 @@
 
 class Animal
 {
-  var $name;
-  var $region;
-  var $diet;
-  var $canFly = false;
+  public $name;
+  public $region;
+  public $diet;
+  private $canFly = false;
+  protected $habitat;
 
-  function canFly()
+  public function setCanFly($canFly)
+  {
+    $this->canFly = $canFly;
+  }
+  public function canFly()
   {
     if ($this->canFly == false) {
       return "The " . $this->name . " cannot fly.";
@@ -16,7 +21,17 @@ class Animal
     }
   }
 
-  function animalDescription()
+  public function setHabitat($habitat)
+  {
+    $this->habitat = $habitat;
+  }
+
+  public function getHabitat()
+  {
+    return $this->habitat;
+  }
+
+  public function animalDescription()
   {
     $description = "The " . $this->name . " is from " . $this->region . " and it is a(n) " . $this->diet . ". " . $this->canFly();
 
@@ -30,18 +45,22 @@ class Animal
       $description .= " It is a reptile with " . $this->scaleType . " scales.";
     }
 
+    if ($this->habitat) {
+      $description .= " It typically lives in " . $this->habitat . ".";
+    }
+
     return $description;
   }
 }
 
 class Mammal extends Animal
 {
-  var $furColor;
+  public $furColor;
 }
 
 class Reptile extends Animal
 {
-  var $scaleType;
+  public $scaleType;
 }
 
 $elephant = new Mammal;
@@ -49,27 +68,31 @@ $elephant->name = "elephant";
 $elephant->region = "Africa";
 $elephant->diet = "herbivore";
 $elephant->furColor = "grayish brown";
+$elephant->setHabitat("savannahs and forests");
 
 $bat = new Mammal;
 $bat->name = "bat";
 $bat->region = "Europe, Africa, Asia, Australia, and the Americas";
 $bat->diet = "carnivore";
-$bat->canFly = true;
+$bat->setCanFly(true);
 $bat->furColor = "red, tan, brown, or gray";
+$bat->setHabitat("caves and forests");
 
 $snake = new Reptile;
 $snake->name = "snake";
 $snake->region = "Africa, Asia, and the Americas";
 $snake->diet = "carnivore";
 $snake->scaleType = "smooth";
+$snake->setHabitat("various environments including deserts and forests");
 
 $iguana = new Reptile;
 $iguana->name = "iguana";
 $iguana->region = "Central and South America";
 $iguana->diet = "herbivore";
 $iguana->scaleType = "bumpy";
+$iguana->setHabitat("tropical areas and rainforests");
 
-echo $elephant->animalDescription() . "<br><br>";
-echo $bat->animalDescription() . "<br><br>";
-echo $snake->animalDescription() . "<br><br>";
-echo $iguana->animalDescription() . "<br><br>";
+echo $elephant->animalDescription() . "<br><hr>";
+echo $bat->animalDescription() . "<br><hr>";
+echo $snake->animalDescription() . "<br><hr>";
+echo $iguana->animalDescription() . "<br><hr>";
