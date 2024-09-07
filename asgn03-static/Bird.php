@@ -7,9 +7,9 @@ class Bird
   protected $diet;
   protected $nesting = "tree";
   protected $conservation;
-  protected $song = "chirp";
-  protected static $flying = "yes";
-  private static $instanceCount;
+  public $song = "chirp";
+  public static $flying = "yes";
+  private static $instanceCount = 0;
   protected static $eggNum = 0;
 
   public static function create()
@@ -18,9 +18,14 @@ class Bird
     return new self();
   }
 
-  public static function can_fly()
+  public static function canFly()
   {
     return static::$flying == "yes" ? " can fly" : " cannot fly and is stuck on the ground";
+  }
+
+  public static function getInstanceCount()
+  {
+    return self::$instanceCount;
   }
 }
 
@@ -36,5 +41,5 @@ class Kiwi extends Bird
 {
   public $name = "kiwi";
   public $diet = "omnivorous";
-  public $flying = "no";
+  public static $flying = "no";
 }
